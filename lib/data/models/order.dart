@@ -59,7 +59,7 @@ class Order {
   int lineAmount(OrderLine line, List<Product> products) {
     for (final Product product in products) {
       if (product.id == line.productId) {
-        return product.price * line.qty;
+        return product.amountFor(line.qty);
       }
     }
     return 0;

@@ -36,4 +36,11 @@ class Product {
 
   /// Prix unitaire en FCFA (entier : le franc CFA n'a pas de décimales).
   final int price;
+
+  /// Montant d'une quantité de ce produit : prix unitaire multiplié par [qty].
+  /// Point unique de calcul "prix x quantité", réutilisé par le panier
+  /// et par les commandes pour éviter de dupliquer la formule.
+  int amountFor(int qty) {
+    return price * qty;
+  }
 }

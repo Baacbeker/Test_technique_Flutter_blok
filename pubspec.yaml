@@ -30,9 +30,10 @@ dependencies:
   # Formatage des montants FCFA et des dates.
   intl: ^0.20.3
   # Police Space Grotesk de la charte BLOK.
-  # Version 6.x : la 9.x dépend du paquet expérimental material_ui, incompatible
-  # avec le TextTheme de Flutter (erreur de type au moment de l'analyse).
-  google_fonts: ^6.2.1
+  # Attention aux versions : la 9.x dépend du paquet expérimental material_ui
+  # (TextTheme incompatible) et la 6.2.1 ne compile plus avec Dart 3.13
+  # (clé const de type FontWeight). La 6.3.3 est la première version saine.
+  google_fonts: ^6.3.3
 
 dev_dependencies:
   flutter_test:
