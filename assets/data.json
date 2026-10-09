@@ -1,0 +1,21 @@
+{
+  "products": [
+    {"id": 1, "name": "Ciment CPJ 42.5", "category": "Gros œuvre", "unit": "sac 50 kg", "price": 5200},
+    {"id": 2, "name": "Fer à béton HA10", "category": "Gros œuvre", "unit": "barre 12 m", "price": 4300},
+    {"id": 3, "name": "Fer à béton HA12", "category": "Gros œuvre", "unit": "barre 12 m", "price": 6100},
+    {"id": 4, "name": "Sable lagunaire", "category": "Agrégats", "unit": "m³", "price": 9000},
+    {"id": 5, "name": "Gravier 15/25", "category": "Agrégats", "unit": "m³", "price": 18000},
+    {"id": 6, "name": "Agglo creux 15", "category": "Gros œuvre", "unit": "pièce", "price": 450},
+    {"id": 7, "name": "Tôle bac alu 5/10", "category": "Toiture", "unit": "mètre linéaire", "price": 7500},
+    {"id": 8, "name": "Carreau grès 60x60", "category": "Second œuvre", "unit": "m²", "price": 8500},
+    {"id": 9, "name": "Peinture acrylique", "category": "Second œuvre", "unit": "seau 25 kg", "price": 32000}
+  ],
+  "orders": [
+    {"ref": "CMD-1042", "site": "R+3 Cocody Angré", "date": "2026-10-05", "status": "Shipped",
+     "lines": [{"productId": 1, "qty": 200}, {"productId": 3, "qty": 80}]},
+    {"ref": "CMD-1038", "site": "Villa Bingerville", "date": "2026-10-01", "status": "Delivered",
+     "lines": [{"productId": 4, "qty": 12}, {"productId": 5, "qty": 8}, {"productId": 6, "qty": 1500}]},
+    {"ref": "CMD-1047", "site": "R+3 Cocody Angré", "date": "2026-10-07", "status": "Received",
+     "lines": [{"productId": 7, "qty": 120}]}
+  ]
+}
