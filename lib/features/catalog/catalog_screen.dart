@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/theme/app_colors.dart';
+import '../../data/models/product.dart';
 import '../../state/catalog_controller.dart';
+import '../product_detail/product_detail_screen.dart';
 import 'widgets/category_filter.dart';
 import 'widgets/product_tile.dart';
 
@@ -57,8 +59,22 @@ class CatalogScreen extends StatelessWidget {
       separatorBuilder: (BuildContext context, int index) =>
           const SizedBox(height: 10),
       itemBuilder: (BuildContext context, int index) {
-        return ProductTile(product: catalog.visibleProducts[index]);
+        final Product product = catalog.visibleProducts[index];
+        return ProductTile(
+          product: product,
+          onTap: () => _openProduct(context, product),
+        );
       },
+    );
+  }
+
+  /// Navigation empilée vers la fiche du produit touché.
+  void _openProduct(BuildContext context, Product product) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) =>
+            ProductDetailScreen(product: product),
+      ),
     );
   }
 

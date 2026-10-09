@@ -24,7 +24,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.8
   # Gestion d'état : ChangeNotifier + provider (imposé par le cahier des charges).
   provider: ^6.1.5+1
   # Formatage des montants FCFA et des dates.
