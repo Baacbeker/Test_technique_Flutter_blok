@@ -69,37 +69,35 @@ class _BlokChantierAppState extends State<BlokChantierApp> {
             ],
           ),
           bottomNavigationBar: Consumer<CartController>(
-            builder: (
-              BuildContext context,
-              CartController cart,
-              Widget? child,
-            ) {
-              return NavigationBar(
-                selectedIndex: _selectedIndex,
-                onDestinationSelected: (int index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
+            builder:
+                (BuildContext context, CartController cart, Widget? child) {
+                  return NavigationBar(
+                    selectedIndex: _selectedIndex,
+                    onDestinationSelected: (int index) {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
+                    destinations: <NavigationDestination>[
+                      const NavigationDestination(
+                        icon: Icon(Icons.inventory_2_outlined),
+                        selectedIcon: Icon(Icons.inventory_2),
+                        label: 'Catalogue',
+                      ),
+                      NavigationDestination(
+                        icon: _cartIcon(cart.itemCount, false),
+                        selectedIcon: _cartIcon(cart.itemCount, true),
+                        label: 'Panier',
+                      ),
+                      const NavigationDestination(
+                        icon: Icon(Icons.local_shipping_outlined),
+                        selectedIcon: Icon(Icons.local_shipping),
+                        label: 'Commandes',
+                      ),
+                    ],
+                  );
                 },
-                destinations: <NavigationDestination>[
-                  const NavigationDestination(
-                    icon: Icon(Icons.inventory_2_outlined),
-                    selectedIcon: Icon(Icons.inventory_2),
-                    label: 'Catalogue',
-                  ),
-                  NavigationDestination(
-                    icon: _cartIcon(cart.itemCount, false),
-                    selectedIcon: _cartIcon(cart.itemCount, true),
-                    label: 'Panier',
-                  ),
-                  const NavigationDestination(
-                    icon: Icon(Icons.local_shipping_outlined),
-                    selectedIcon: Icon(Icons.local_shipping),
-                    label: 'Commandes',
-                  ),
-                ],
-              );
-            },
           ),
         ),
       ),

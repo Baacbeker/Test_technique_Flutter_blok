@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/fcfa_format.dart';
 import '../../data/models/product.dart';
+import '../../state/cart_controller.dart';
 import 'widgets/quantity_picker.dart';
 
 /// [ProductDetailScreen] : écran 2, la fiche d'un matériau.
@@ -20,6 +22,7 @@ class ProductDetailScreen extends StatefulWidget {
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
 
+/// État d'interface de la quantité choisie sur la fiche produit.
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   /// Quantité choisie, qui démarre toujours à 1.
   int _quantity = 1;
@@ -127,6 +130,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   /// Montant de la ligne : le modèle Product fait la multiplication,
   /// l'écran se contente de l'afficher avec le formatage FCFA commun.
   Widget _buildTotal(BuildContext context) {
+    final int amount = context
+        .read<CartController>()
+        .productTotal(widget.product, _quantity);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
@@ -138,7 +144,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         children: <Widget>[
           const Text('Montant', style: TextStyle(color: Colors.white70)),
           Text(
-            formatFcfa(widget.product.amountFor(_quantity)),
+            formatFcfa(amount),
             style: Theme.of(context).textTheme.titleMedium
                 ?.copyWith(color: Colors.white, fontWeight: FontWeight.w700),
           ),

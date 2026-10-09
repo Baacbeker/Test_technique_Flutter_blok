@@ -22,7 +22,8 @@ class CartController extends ChangeNotifier {
   List<OrderLine> get lines => List<OrderLine>.unmodifiable(_lines);
 
   /// Nombre d'unités dans le panier, affiché sur la navigation.
-  int get itemCount => _lines.fold<int>(0, (int sum, OrderLine line) => sum + line.qty);
+  int get itemCount =>
+      _lines.fold<int>(0, (int sum, OrderLine line) => sum + line.qty);
 
   /// Chantiers distincts présents dans les commandes locales.
   List<String> get sites => List<String>.unmodifiable(_sites);
@@ -34,11 +35,8 @@ class CartController extends ChangeNotifier {
   String? get siteError => _siteError;
 
   /// Montant total du panier, calculé à partir des prix du catalogue.
-  int get total => _lines.fold<int>(
-        0,
-        (int sum, OrderLine line) =>
-            sum + lineTotal(line),
-      );
+  int get total =>
+      _lines.fold<int>(0, (int sum, OrderLine line) => sum + lineTotal(line));
 
   /// Charge les chantiers à partir des commandes de la source locale.
   Future<void> loadSites() async {
@@ -66,6 +64,11 @@ class CartController extends ChangeNotifier {
     return productFor(line.productId).amountFor(line.qty);
   }
 
+  /// Montant prévisionnel pour une quantité choisie dans la fiche produit.
+  int productTotal(Product product, int quantity) {
+    return product.amountFor(quantity);
+  }
+
   /// Ajoute une quantité au panier ou l'additionne à la ligne existante.
   void addProduct(Product product, int quantity) {
     final int index = _lines.indexWhere(
@@ -90,9 +93,8 @@ class CartController extends ChangeNotifier {
     }
     _lines = _lines
         .map(
-          (OrderLine line) => line.productId == productId
-              ? line.copyWith(qty: quantity)
-              : line,
+          (OrderLine line) =>
+              line.productId == productId ? line.copyWith(qty: quantity) : line,
         )
         .toList();
     notifyListeners();
