@@ -19,10 +19,7 @@ class CatalogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CatalogController catalog = context.watch<CatalogController>();
-    return Scaffold(
-      appBar: AppBar(title: const Text('Catalogue')),
-      body: _buildBody(catalog),
-    );
+    return _buildBody(catalog);
   }
 
   /// Affiche le chargement, l'erreur ou la liste filtrée.
@@ -50,9 +47,7 @@ class CatalogScreen extends StatelessWidget {
   /// Liste des produits visibles pour la catégorie choisie.
   Widget _buildList(CatalogController catalog) {
     if (catalog.visibleProducts.isEmpty) {
-      return const Center(
-        child: Text('Aucun produit dans cette catégorie.'),
-      );
+      return const Center(child: Text('Aucun produit dans cette catégorie.'));
     }
     return ListView.separated(
       padding: const EdgeInsets.fromLTRB(16, 6, 16, 20),
@@ -80,9 +75,7 @@ class CatalogScreen extends StatelessWidget {
     if (quantity != null && context.mounted) {
       context.read<CartController>().addProduct(product, quantity);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('${product.name} x$quantity ajouté au panier'),
-        ),
+        SnackBar(content: Text('${product.name} x$quantity ajouté au panier')),
       );
     }
   }
@@ -95,10 +88,7 @@ class CatalogScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text(
-            catalog.errorMessage ?? '',
-            textAlign: TextAlign.center,
-          ),
+          Text(catalog.errorMessage ?? '', textAlign: TextAlign.center),
           const SizedBox(height: 16),
           FilledButton(
             onPressed: catalog.loadProducts,
