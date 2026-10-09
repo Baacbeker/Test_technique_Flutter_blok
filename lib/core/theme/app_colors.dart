@@ -19,6 +19,9 @@ class AppColors {
   /// Jaune de la charte : alertes et étape en cours du suivi de commande.
   static const Color yellow = Color(0xFFEEC844);
 
+  /// Vert de confirmation : statut "Livrée".
+  static const Color green = Color(0xFF2E7D32);
+
   /// Fond neutre des écrans.
   static const Color background = Color(0xFFF4F5F7);
 
