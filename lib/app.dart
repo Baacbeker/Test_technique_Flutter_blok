@@ -5,12 +5,12 @@ import 'core/theme/app_theme.dart';
 import 'data/repositories/catalog_repository.dart';
 import 'data/repositories/local_catalog_repository.dart';
 import 'features/catalog/catalog_screen.dart';
+import 'state/cart_controller.dart';
 import 'state/catalog_controller.dart';
 
 /// [BlokChantierApp] : racine de l'application.
 /// Elle installe le thème BLOK et les providers : le repository (données),
-/// puis le contrôleur du catalogue. Le panier et les commandes viendront
-/// se brancher ici aux étapes suivantes, sans toucher aux écrans.
+/// puis les contrôleurs du catalogue et du panier.
 class BlokChantierApp extends StatelessWidget {
   /// Racine sans état interne : tout l'état vit dans les contrôleurs.
   const BlokChantierApp({super.key});
@@ -28,6 +28,12 @@ class BlokChantierApp extends StatelessWidget {
           create: (BuildContext context) =>
               CatalogController(context.read<CatalogRepository>())
                 ..loadProducts(),
+        ),
+        ChangeNotifierProvider<CartController>(
+          create: (BuildContext context) => CartController(
+            context.read<CatalogController>(),
+            context.read<CatalogRepository>(),
+          )..loadSites(),
         ),
       ],
       child: MaterialApp(

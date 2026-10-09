@@ -42,14 +42,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   /// Ajoute au panier puis revient au catalogue avec un message de confirmation.
   void _addToCart() {
-    final ScaffoldMessengerState messenger = ScaffoldMessenger.of(context);
-    // Étape 5 : le CartController sera branché ici, avant le retour.
-    Navigator.of(context).pop();
-    messenger.showSnackBar(
-      SnackBar(
-        content: Text('${widget.product.name} x$_quantity ajouté au panier'),
-      ),
-    );
+    Navigator.of(context).pop<int>(_quantity);
   }
 
   @override
@@ -65,10 +58,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           Text(
             'Quantité',
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: AppColors.navy,
-                  fontWeight: FontWeight.w600,
-                ),
+            style: Theme.of(context).textTheme.titleMedium
+                ?.copyWith(color: AppColors.navy, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 12),
           QuantityPicker(
@@ -145,16 +136,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          const Text(
-            'Montant',
-            style: TextStyle(color: Colors.white70),
-          ),
+          const Text('Montant', style: TextStyle(color: Colors.white70)),
           Text(
             formatFcfa(widget.product.amountFor(_quantity)),
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
+            style: Theme.of(context).textTheme.titleMedium
+                ?.copyWith(color: Colors.white, fontWeight: FontWeight.w700),
           ),
         ],
       ),
