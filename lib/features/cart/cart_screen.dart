@@ -4,15 +4,16 @@ import 'package:provider/provider.dart';
 import '../../core/utils/fcfa_format.dart';
 import '../../data/models/order_line.dart';
 import '../../state/cart_controller.dart';
+import '../../state/orders_controller.dart';
 import 'widgets/cart_line_tile.dart';
 import 'widgets/site_selector.dart';
 
 /// Écran du panier : il se limite à afficher et relayer les actions.
 class CartScreen extends StatelessWidget {
-  /// Le parent branche l'envoi de commande une fois le flux disponible.
-  const CartScreen({this.onSubmit, super.key});
+  /// Le parent peut ouvrir l'onglet commandes après l'envoi.
+  const CartScreen({this.onOrderSubmitted, super.key});
 
-  final VoidCallback? onSubmit;
+  final ValueChanged<String>? onOrderSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +68,9 @@ class CartScreen extends StatelessWidget {
             _buildTotal(context, cart),
             const SizedBox(height: 12),
             FilledButton(
-              onPressed: cart.selectedSite != null && onSubmit != null
-                  ? onSubmit
-                  : null,
+              onPressed: cart.selectedSite == null
+                  ? null
+                  : () => _submitOrder(context, cart),
               child: const Text('Envoyer la commande'),
             ),
           ],
@@ -89,5 +90,21 @@ class CartScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _submitOrder(BuildContext context, CartController cart) {
+    final String? site = cart.selectedSite;
+    if (site == null || cart.lines.isEmpty) {
+      return;
+    }
+    final order = context.read<OrdersController>().submitOrder(
+          site: site,
+          lines: cart.lines,
+        );
+    cart.clear();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Commande ${order.reference} envoyée.')),
+    );
+    onOrderSubmitted?.call(order.reference);
   }
 }

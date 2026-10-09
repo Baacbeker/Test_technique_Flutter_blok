@@ -7,6 +7,7 @@ import 'data/repositories/local_catalog_repository.dart';
 import 'features/catalog/catalog_screen.dart';
 import 'state/cart_controller.dart';
 import 'state/catalog_controller.dart';
+import 'state/orders_controller.dart';
 
 /// [BlokChantierApp] : racine de l'application.
 /// Elle installe le thème BLOK et les providers : le repository (données),
@@ -34,6 +35,12 @@ class BlokChantierApp extends StatelessWidget {
             context.read<CatalogController>(),
             context.read<CatalogRepository>(),
           )..loadSites(),
+        ),
+        ChangeNotifierProvider<OrdersController>(
+          create: (BuildContext context) => OrdersController(
+            context.read<CatalogRepository>(),
+            context.read<CatalogController>(),
+          )..loadOrders(),
         ),
       ],
       child: MaterialApp(
